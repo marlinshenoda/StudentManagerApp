@@ -1,0 +1,12 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/.vs/StudentManagerApp/FileContentIndex/96aaa7da-14a0-4a77-a098-d8fa3a722cd0.vsidx
+/.vs/StudentManagerApp/FileContentIndex/9d006def-c62d-430d-87ea-dffbb8087908.vsidx
+/.vs/StudentManagerApp/FileContentIndex/be7d13bd-08bf-4e88-a751-4be02b2519dc.vsidx
+/.vs/StudentManagerApp/FileContentIndex/c2d528ee-654c-4b1e-b526-225be4019aa1.vsidx
+/StudentManagerApp/obj/Debug/net8.0/StudentManagerApp.AssemblyInfo.cs
+/StudentManagerApp/obj/Debug/net8.0/StudentManagerApp.AssemblyInfoInputs.cache
+/.vs/StudentManagerApp/FileContentIndex/6388e283-63dc-4f0a-a9bb-fc0f825a79f6.vsidx
+/.gitignore
