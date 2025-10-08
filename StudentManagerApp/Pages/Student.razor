@@ -1,0 +1,98 @@
+﻿@page "/students"
+@inject StudentManagerApp.Data1.Repository.IStudentService StudentService
+
+<h3>Student Management</h3>
+
+<!-- Add Student -->
+<div class="mb-3">
+    <input placeholder="Name" @bind="newStudent.Name" class="form-control mb-1" />
+    <input type="number" placeholder="Grade" step="0.01" @bind="newStudent.Grade" class="form-control mb-1" />
+    <button class="btn btn-primary" @onclick="AddStudent">Add Student</button>
+</div>
+
+<!-- Sort Buttons -->
+<div class="mb-3">
+    <button class="btn btn-secondary me-2" @onclick="SortByName">Sort by Name</button>
+    <button class="btn btn-secondary" @onclick="SortByGrade">Sort by Grade</button>
+</div>
+
+<!-- Student Table -->
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Grade</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var student in students)
+        {
+            <tr>
+                <td>@student.Id</td>
+                <td><input @bind="student.Name" class="form-control" /></td>
+                <td><input type="number" step="0.01" @bind="student.Grade" class="form-control" /></td>
+                <td>
+                    <button class="btn btn-success me-2" @onclick="() => UpdateStudent(student)">Update</button>
+                    <button class="btn btn-danger" @onclick="() => DeleteStudent(student.Id)">Delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    private List<StudentManagerApp.Data1.Student> students = new();
+    private StudentManagerApp.Data1.Student newStudent = new();
+
+    protected override void OnInitialized()
+    {
+        RefreshStudents();
+    }
+
+    private void AddStudent()
+    {
+        if (!string.IsNullOrWhiteSpace(newStudent.Name))
+        {
+            StudentService.AddStudent(newStudent);
+            newStudent = new StudentManagerApp.Data1.Student();
+            RefreshStudents();
+        }
+    }
+
+    private void DeleteStudent(int id)
+    {
+        var student = students.FirstOrDefault(s => s.Id == id);
+        if (student != null)
+        {
+            StudentService.DeleteStudent(student.Name);
+            RefreshStudents();
+        }
+    }
+
+    private void UpdateStudent(StudentManagerApp.Data1.Student student)
+    {
+        StudentService.UpdateStudent(student);
+        RefreshStudents();
+    }
+
+    private void SortByName()
+    {
+        StudentService.SortByName();
+        RefreshStudents();
+    }
+
+    private void SortByGrade()
+    {
+        StudentService.SortByGrade();
+        RefreshStudents();
+    }
+
+    private void RefreshStudents()
+    {
+        students = StudentService.GetStudents();
+        StateHasChanged();
+    }
+}
+
